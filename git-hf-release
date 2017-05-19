@@ -161,6 +161,11 @@ cmd_start() {
 	BASE=${2:-$DEVELOP_BRANCH}
 	require_version_arg
 
+    branch=$(git branch -r | grep "release/")
+    if [ -n "$branch" ]; then
+        die "Already has release branch. Please finish it and retry."
+     fi
+
 	# sanity checks
 	require_clean_working_tree
 	require_remote_available
